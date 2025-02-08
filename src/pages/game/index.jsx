@@ -4,9 +4,19 @@ function Game() {
   const options = ["rock", "paper", "scissor"];
 
   const [result, setResult] = useState("");
+  const [scorePlayer, setScorePlayer] = useState(0);
+  const [scoreComputer, setScoreComputer] = useState(0);
 
   const drawOptionComputer = () => {
     return options[Math.floor(Math.random() * options.length)];
+  };
+
+  const handleScorePlayer = () => {
+    setScorePlayer(scorePlayer + 1);
+  };
+
+  const handleScoreComputer = () => {
+    setScoreComputer(scoreComputer + 1);
   };
 
   const play = (optionPlayer) => {
@@ -23,17 +33,21 @@ function Game() {
       console.log("Result", "YOU WIN!");
 
       setResult("YOU WIN!");
+      handleScorePlayer();
     } else if (optionPlayer == "scissor" && optionComputer == "rock") {
       console.log("Result", "YOU WIN!");
 
       setResult("YOU WIN!");
+      handleScorePlayer();
     } else if (optionPlayer == "scissor" && optionComputer == "paper") {
       console.log("Result", "YOU WIN!");
 
       setResult("YOU WIN!");
+      handleScorePlayer();
     } else {
       console.log("Result", "YOU LOSE!");
       setResult("YOU LOSE!");
+      handleScoreComputer();
     }
 
     setTimeout(() => {
@@ -46,14 +60,14 @@ function Game() {
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div>
           <p>Player</p>
-          <p>0</p>
+          <p>{scorePlayer}</p>
         </div>
         <div>
           <p>{result}</p>
         </div>
         <div>
           <p>Computer</p>
-          <p>0</p>
+          <p>{scoreComputer}</p>
         </div>
       </div>
 
