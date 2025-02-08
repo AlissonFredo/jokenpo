@@ -3,41 +3,41 @@ import { useState } from "react";
 function Game() {
   const options = ["rock", "paper", "scissor"];
 
-  const [resultado, setResultado] = useState("");
+  const [result, setResult] = useState("");
 
-  const sorteaOpcaoComputador = () => {
+  const drawOptionComputer = () => {
     return options[Math.floor(Math.random() * options.length)];
   };
 
   const play = (optionPlayer) => {
-    const opcaoComputador = sorteaOpcaoComputador();
+    const optionComputer = drawOptionComputer();
 
     console.log("Player", optionPlayer);
-    console.log("Computador", opcaoComputador);
+    console.log("Computer", optionComputer);
 
-    if (optionPlayer == opcaoComputador) {
-      console.log("Resultado", "DRAW GAME");
+    if (optionPlayer == optionComputer) {
+      console.log("Result", "DRAW GAME");
 
-      setResultado("DRAW GAME");
-    } else if (optionPlayer == "rock" && opcaoComputador == "scissor") {
-      console.log("Resultado", "YOU WIN!");
+      setResult("DRAW GAME");
+    } else if (optionPlayer == "rock" && optionComputer == "scissor") {
+      console.log("Result", "YOU WIN!");
 
-      setResultado("YOU WIN!");
-    } else if (optionPlayer == "scissor" && opcaoComputador == "rock") {
-      console.log("Resultado", "YOU WIN!");
+      setResult("YOU WIN!");
+    } else if (optionPlayer == "scissor" && optionComputer == "rock") {
+      console.log("Result", "YOU WIN!");
 
-      setResultado("YOU WIN!");
-    } else if (optionPlayer == "scissor" && opcaoComputador == "paper") {
-      console.log("Resultado", "YOU WIN!");
+      setResult("YOU WIN!");
+    } else if (optionPlayer == "scissor" && optionComputer == "paper") {
+      console.log("Result", "YOU WIN!");
 
-      setResultado("YOU WIN!");
+      setResult("YOU WIN!");
     } else {
-      console.log("Resultado", "YOU LOSE!");
-      setResultado("YOU LOSE!");
+      console.log("Result", "YOU LOSE!");
+      setResult("YOU LOSE!");
     }
 
     setTimeout(() => {
-      setResultado("");
+      setResult("");
     }, 1000);
   };
 
@@ -45,14 +45,14 @@ function Game() {
     <div>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div>
-          <p>player</p>
+          <p>Player</p>
           <p>0</p>
         </div>
         <div>
-          <p>{resultado}</p>
+          <p>{result}</p>
         </div>
         <div>
-          <p>computador</p>
+          <p>Computer</p>
           <p>0</p>
         </div>
       </div>
@@ -65,18 +65,18 @@ function Game() {
           justifyContent: "space-around",
         }}
       >
-        <div style={{ display: "inline-block" }}>
+        <div>
           <p>&#9994;&#10145;&#9995;</p>
         </div>
-        <div style={{ display: "inline-block" }}>
+        <div>
           <p>&#9994;&#11013;&#9995;</p>
         </div>
       </div>
 
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <button onClick={() => play(options[0])}>&#9994; pedra</button>
-        <button onClick={() => play(options[1])}>&#9995; papel</button>
-        <button onClick={() => play(options[2])}>&#9996; tesoura</button>
+        <button onClick={() => play(options[0])}>&#9994; Rock</button>
+        <button onClick={() => play(options[1])}>&#9995; Paper</button>
+        <button onClick={() => play(options[2])}>&#9996; Scissor</button>
       </div>
     </div>
   );
