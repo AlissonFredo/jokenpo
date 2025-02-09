@@ -7,8 +7,38 @@ function Game() {
   const [scorePlayer, setScorePlayer] = useState(0);
   const [scoreComputer, setScoreComputer] = useState(0);
 
+  const play = (optionPlayer) => {
+    const optionComputer = drawOptionComputer();
+
+    const matchResult = getMatchResult(optionPlayer, optionComputer);
+
+    setResult(matchResult);
+
+    if (matchResult == "YOU WIN!") {
+      handleScorePlayer();
+    } else if (matchResult == "YOU LOSE!") {
+      handleScoreComputer();
+    }
+
+    setTimeout(() => setResult(""), 1000);
+  };
+
   const drawOptionComputer = () => {
     return options[Math.floor(Math.random() * options.length)];
+  };
+
+  const getMatchResult = (optionPlayer, optionComputer) => {
+    if (optionPlayer == optionComputer) {
+      return "DRAW GAME";
+    } else if (optionPlayer == "rock" && optionComputer == "scissor") {
+      return "YOU WIN!";
+    } else if (optionPlayer == "scissor" && optionComputer == "rock") {
+      return "YOU WIN!";
+    } else if (optionPlayer == "scissor" && optionComputer == "paper") {
+      return "YOU WIN!";
+    }
+
+    return "YOU LOSE!";
   };
 
   const handleScorePlayer = () => {
@@ -17,42 +47,6 @@ function Game() {
 
   const handleScoreComputer = () => {
     setScoreComputer(scoreComputer + 1);
-  };
-
-  const play = (optionPlayer) => {
-    const optionComputer = drawOptionComputer();
-
-    console.log("Player", optionPlayer);
-    console.log("Computer", optionComputer);
-
-    if (optionPlayer == optionComputer) {
-      console.log("Result", "DRAW GAME");
-
-      setResult("DRAW GAME");
-    } else if (optionPlayer == "rock" && optionComputer == "scissor") {
-      console.log("Result", "YOU WIN!");
-
-      setResult("YOU WIN!");
-      handleScorePlayer();
-    } else if (optionPlayer == "scissor" && optionComputer == "rock") {
-      console.log("Result", "YOU WIN!");
-
-      setResult("YOU WIN!");
-      handleScorePlayer();
-    } else if (optionPlayer == "scissor" && optionComputer == "paper") {
-      console.log("Result", "YOU WIN!");
-
-      setResult("YOU WIN!");
-      handleScorePlayer();
-    } else {
-      console.log("Result", "YOU LOSE!");
-      setResult("YOU LOSE!");
-      handleScoreComputer();
-    }
-
-    setTimeout(() => {
-      setResult("");
-    }, 1000);
   };
 
   return (
