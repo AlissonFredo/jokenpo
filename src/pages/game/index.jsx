@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Header from "../../components/Header";
 
 function Game() {
   const options = ["rock", "paper", "scissor"];
@@ -51,19 +52,11 @@ function Game() {
 
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <div>
-          <p>Player</p>
-          <p>{scorePlayer}</p>
-        </div>
-        <div>
-          <p>{result}</p>
-        </div>
-        <div>
-          <p>Computer</p>
-          <p>{scoreComputer}</p>
-        </div>
-      </div>
+      <Header
+        scorePlayer={scorePlayer}
+        scoreComputer={scoreComputer}
+        result={result}
+      />
 
       <div
         style={{
