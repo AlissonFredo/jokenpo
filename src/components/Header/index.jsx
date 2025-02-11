@@ -1,16 +1,26 @@
 function Header({ scorePlayer, scoreComputer, result }) {
   return (
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
+    <div className="flex justify-between">
       <div>
-        <p>Player</p>
-        <p>{scorePlayer}</p>
+        <p className="text-white font-bold text-3xl mb-2 drop-shadow-[6px_6px_4px_black]">
+          Player
+        </p>
+        <p className="text-center text-white font-bold text-3xl mb-1 drop-shadow-[6px_6px_4px_black]">
+          {scorePlayer}
+        </p>
       </div>
       <div>
-        <p>{result}</p>
+        <p className="text-white font-bold text-5xl mb-2 drop-shadow-[6px_6px_4px_black]">
+          {result}
+        </p>
       </div>
       <div>
-        <p>Computer</p>
-        <p>{scoreComputer}</p>
+        <p className="text-white font-bold text-3xl mb-2 drop-shadow-[6px_6px_4px_black]">
+          Computer
+        </p>
+        <p className="text-center text-white font-bold text-3xl mb-1 drop-shadow-[6px_6px_4px_black]">
+          {scoreComputer}
+        </p>
       </div>
     </div>
   );
