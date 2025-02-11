@@ -21,7 +21,7 @@ function Game() {
       handleScoreComputer();
     }
 
-    setTimeout(() => setResult(""), 1000);
+    setTimeout(() => setResult(""), 1500);
   };
 
   const drawOptionComputer = () => {
@@ -51,33 +51,27 @@ function Game() {
   };
 
   return (
-    <div>
-      <Header
-        scorePlayer={scorePlayer}
-        scoreComputer={scoreComputer}
-        result={result}
-      />
+    <div className="w-full min-h-screen bg-radial from-yellow-600 from-30% to-yellow-800 flex items-center justify-center">
+      <div className="flex flex-col justify-between rounded-xl border-15 border-gray-300 p-8 h-130 w-250 bg-radial from-orange-100 from-10% to-orange-300">
+        <Header
+          scorePlayer={scorePlayer}
+          scoreComputer={scoreComputer}
+          result={result}
+        />
 
-      <div
-        style={{
-          marginBottom: "2rem",
-          marginTop: "2rem",
-          display: "flex",
-          justifyContent: "space-around",
-        }}
-      >
-        <div>
-          <p>&#9994;&#10145;&#9995;</p>
+        <div className="flex justify-between">
+          <div>
+            <p>&#9994;&#10145;&#9995;</p>
+          </div>
+          <div>
+            <p>&#9994;&#11013;&#9995;</p>
+          </div>
         </div>
-        <div>
-          <p>&#9994;&#11013;&#9995;</p>
+        <div className="flex justify-center">
+          <button onClick={() => play(options[0])}>&#9994; Rock</button>
+          <button onClick={() => play(options[1])}>&#9995; Paper</button>
+          <button onClick={() => play(options[2])}>&#9996; Scissor</button>
         </div>
-      </div>
-
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <button onClick={() => play(options[0])}>&#9994; Rock</button>
-        <button onClick={() => play(options[1])}>&#9995; Paper</button>
-        <button onClick={() => play(options[2])}>&#9996; Scissor</button>
       </div>
     </div>
   );
