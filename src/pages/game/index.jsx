@@ -10,21 +10,52 @@ function Game() {
   const [result, setResult] = useState("");
   const [scorePlayer, setScorePlayer] = useState(0);
   const [scoreComputer, setScoreComputer] = useState(0);
+  const [initialGame, setInitialGame] = useState(false);
+
+  const [optionPlayer, setOptionPlayer] = useState("rock");
+  const [optionComputer, setOptionComputer] = useState("rock");
 
   const play = (optionPlayer) => {
-    const optionComputer = drawOptionComputer();
+    setInitialGame(true);
 
-    const matchResult = getMatchResult(optionPlayer, optionComputer);
+    setTimeout(() => {
+      setResult("Rock");
 
-    setResult(matchResult);
+      setTimeout(() => {
+        setResult("Peper");
 
-    if (matchResult == "YOU WIN!") {
-      handleScorePlayer();
-    } else if (matchResult == "YOU LOSE!") {
-      handleScoreComputer();
-    }
+        setTimeout(() => {
+          setResult("Scissor");
 
-    setTimeout(() => setResult(""), 1500);
+          setTimeout(() => {
+            const optionComputer = drawOptionComputer();
+
+            console.log("Player", optionPlayer);
+            console.log("Computer", optionComputer);
+
+            const matchResult = getMatchResult(optionPlayer, optionComputer);
+            console.log("Result", matchResult);
+
+            setOptionPlayer(optionPlayer);
+            setOptionComputer(optionComputer);
+            setResult(matchResult);
+
+            if (matchResult == "YOU WIN!") {
+              handleScorePlayer();
+            } else if (matchResult == "YOU LOSE!") {
+              handleScoreComputer();
+            }
+
+            setTimeout(() => {
+              setInitialGame(false);
+              setResult("");
+              setOptionPlayer("rock");
+              setOptionComputer("rock");
+            }, 2000);
+          }, 300);
+        }, 1000);
+      }, 1000);
+    }, 1000);
   };
 
   const drawOptionComputer = () => {
@@ -36,7 +67,7 @@ function Game() {
       return "DRAW GAME";
     } else if (optionPlayer == "rock" && optionComputer == "scissor") {
       return "YOU WIN!";
-    } else if (optionPlayer == "scissor" && optionComputer == "rock") {
+    } else if (optionPlayer == "paper" && optionComputer == "rock") {
       return "YOU WIN!";
     } else if (optionPlayer == "scissor" && optionComputer == "paper") {
       return "YOU WIN!";
@@ -62,12 +93,32 @@ function Game() {
           result={result}
         />
 
-        <div className="flex justify-between">
-          <div>
-            <p>&#9994;&#10145;&#9995;</p>
+        <div className="flex justify-evenly">
+          <div className={initialGame ? "animate-bounce-custom" : ""}>
+            <img
+              src={
+                optionPlayer == "scissor"
+                  ? Scissor
+                  : optionPlayer == "paper"
+                  ? Peper
+                  : Rock
+              }
+              alt=""
+              className="w-30 rotate-180"
+            />
           </div>
-          <div>
-            <p>&#9994;&#11013;&#9995;</p>
+          <div className={initialGame ? "animate-bounce-custom" : ""}>
+            <img
+              src={
+                optionComputer == "scissor"
+                  ? Scissor
+                  : optionComputer == "paper"
+                  ? Peper
+                  : Rock
+              }
+              alt=""
+              className="w-30"
+            />
           </div>
         </div>
 
