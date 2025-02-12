@@ -67,7 +67,7 @@ function Game() {
       return "DRAW GAME";
     } else if (optionPlayer == "rock" && optionComputer == "scissor") {
       return "YOU WIN!";
-    } else if (optionPlayer == "scissor" && optionComputer == "rock") {
+    } else if (optionPlayer == "paper" && optionComputer == "rock") {
       return "YOU WIN!";
     } else if (optionPlayer == "scissor" && optionComputer == "paper") {
       return "YOU WIN!";
