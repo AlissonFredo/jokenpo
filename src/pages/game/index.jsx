@@ -3,6 +3,7 @@ import Header from "../../components/Header";
 import Rock from "../../assets/rock.png";
 import Peper from "../../assets/peper.png";
 import Scissor from "../../assets/scissor.png";
+import ButtonMenu from "../../components/ButtonMenu";
 
 function Game() {
   const options = ["rock", "paper", "scissor"];
@@ -123,47 +124,24 @@ function Game() {
         </div>
 
         <div className="flex justify-center">
-          <button
-            className="p-2 rounded-xl ml-2 flex flex-col justify-between bg-radial from-yellow-600 from-30% to-yellow-800 drop-shadow-[6px_6px_4px_black] cursor-pointer transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
-            onClick={() => play(options[0])}
-          >
-            <img src={Rock} alt="" className="w-15 rotate-90" />
-            <p className="text-white font-bold drop-shadow-[6px_6px_4px_black]">
-              Rock
-            </p>
-          </button>
+          <ButtonMenu
+            action={() => play(options[0])}
+            image={Rock}
+            label="Rock"
+          />
 
-          <button
-            className="p-2 rounded-xl ml-4 flex flex-col justify-end bg-radial from-yellow-600 from-30% to-yellow-800 drop-shadow-[6px_6px_4px_black] cursor-pointer transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
-            onClick={() => play(options[1])}
-          >
-            <div className="w-15 relative">
-              <img
-                src={Peper}
-                alt=""
-                className="w-15 rotate-90 absolute bottom-6 right-0"
-              />
-              <p className="text-white font-bold drop-shadow-[6px_6px_4px_black]">
-                Paper
-              </p>
-            </div>
-          </button>
+          <ButtonMenu
+            action={() => play(options[1])}
+            image={Peper}
+            label="Peper"
+            styles="ml-2 mr-2"
+          />
 
-          <button
-            className="p-2 rounded-xl ml-4 flex flex-col justify-end bg-radial from-yellow-600 from-30% to-yellow-800 drop-shadow-[6px_6px_4px_black] cursor-pointer transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
-            onClick={() => play(options[2])}
-          >
-            <div className="w-15 relative">
-              <img
-                src={Scissor}
-                alt=""
-                className="w-15 rotate-90 absolute bottom-8 right-0"
-              />
-              <p className="text-white font-bold drop-shadow-[6px_6px_4px_black]">
-                Scissor
-              </p>
-            </div>
-          </button>
+          <ButtonMenu
+            action={() => play(options[2])}
+            image={Scissor}
+            label="Scissor"
+          />
         </div>
       </div>
     </div>
