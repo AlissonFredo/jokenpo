@@ -13,10 +13,8 @@ function Game() {
   const [scorePlayer, setScorePlayer] = useState(0);
   const [scoreComputer, setScoreComputer] = useState(0);
   const [initialGame, setInitialGame] = useState(false);
-
   const [optionPlayer, setOptionPlayer] = useState("rock");
   const [optionComputer, setOptionComputer] = useState("rock");
-
   const [lastPlayerOption, setLastPlayerOption] = useState("");
   const [lastComputerOption, setLastComputerOption] = useState("");
 
@@ -52,10 +50,7 @@ function Game() {
             setTimeout(() => {
               setLastPlayerOption(optionPlayer);
               setLastComputerOption(optionComputer);
-              setInitialGame(false);
-              setResult("");
-              setOptionPlayer("rock");
-              setOptionComputer("rock");
+              setInitialValues();
             }, 2000);
           }, 300);
         }, 1000);
@@ -74,12 +69,7 @@ function Game() {
     ) {
       setResult("Avoid consecutive stones");
 
-      setTimeout(() => {
-        setInitialGame(false);
-        setResult("");
-        setOptionPlayer("rock");
-        setOptionComputer("rock");
-      }, 2000);
+      setTimeout(() => setInitialValues(), 2000);
 
       return true;
     }
@@ -107,6 +97,13 @@ function Game() {
 
   const handleScoreComputer = () => {
     setScoreComputer(scoreComputer + 1);
+  };
+
+  const setInitialValues = () => {
+    setInitialGame(false);
+    setResult("");
+    setOptionPlayer("rock");
+    setOptionComputer("rock");
   };
 
   return (
