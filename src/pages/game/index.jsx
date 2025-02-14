@@ -16,6 +16,9 @@ function Game() {
   const [optionPlayer, setOptionPlayer] = useState("rock");
   const [optionComputer, setOptionComputer] = useState("rock");
 
+  const [lastPlayerOption, setLastPlayerOption] = useState("");
+  const [lastComputerOption, setLastComputerOption] = useState("");
+
   const play = (optionPlayer) => {
     setInitialGame(true);
 
@@ -31,11 +34,9 @@ function Game() {
           setTimeout(() => {
             const optionComputer = drawOptionComputer();
 
-            console.log("Player", optionPlayer);
-            console.log("Computer", optionComputer);
+            if (playersWillRepeatOption(optionPlayer, optionComputer)) return;
 
             const matchResult = getMatchResult(optionPlayer, optionComputer);
-            console.log("Result", matchResult);
 
             setOptionPlayer(optionPlayer);
             setOptionComputer(optionComputer);
@@ -48,6 +49,8 @@ function Game() {
             }
 
             setTimeout(() => {
+              setLastPlayerOption(optionPlayer);
+              setLastComputerOption(optionComputer);
               setInitialGame(false);
               setResult("");
               setOptionPlayer("rock");
@@ -61,6 +64,26 @@ function Game() {
 
   const drawOptionComputer = () => {
     return options[Math.floor(Math.random() * options.length)];
+  };
+
+  const playersWillRepeatOption = (optionPlayer, optionComputer) => {
+    if (
+      (optionPlayer == "rock" && lastPlayerOption == "rock") ||
+      (optionComputer == "rock" && lastComputerOption == "rock")
+    ) {
+      setResult("Avoid consecutive stones");
+
+      setTimeout(() => {
+        setInitialGame(false);
+        setResult("");
+        setOptionPlayer("rock");
+        setOptionComputer("rock");
+      }, 2000);
+
+      return true;
+    }
+
+    return false;
   };
 
   const getMatchResult = (optionPlayer, optionComputer) => {
