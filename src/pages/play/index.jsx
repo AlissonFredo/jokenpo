@@ -2,10 +2,11 @@ import { Link } from "react-router-dom";
 import Rock from "../../assets/rock.png";
 import Peper from "../../assets/peper.png";
 import Scissor from "../../assets/scissor.png";
+import Container from "../../components/Container";
 
 function Play() {
   return (
-    <div className="w-full min-h-screen flex items-center justify-center bg-radial from-yellow-600 from-30% to-yellow-800">
+    <Container>
       <div className="flex-2">
         <h1 className="text-center text-white font-bold text-6xl mb-6 drop-shadow-[6px_6px_4px_black]">
           Jokenpo
@@ -35,7 +36,7 @@ function Play() {
           </div>
         </div>
       </div>
-    </div>
+    </Container>
   );
 }
 

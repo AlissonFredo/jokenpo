@@ -4,6 +4,7 @@ import Rock from "../../assets/rock.png";
 import Peper from "../../assets/peper.png";
 import Scissor from "../../assets/scissor.png";
 import ButtonMenu from "../../components/ButtonMenu";
+import Container from "../../components/Container";
 
 function Game() {
   const options = ["rock", "paper", "scissor"];
@@ -109,7 +110,7 @@ function Game() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-radial from-yellow-600 from-30% to-yellow-800 flex items-center justify-center">
+    <Container>
       <div className="flex flex-col justify-between rounded-xl p-8 h-130 w-250 bg-radial from-orange-100 from-10% to-orange-300 drop-shadow-[8px_8px_4px_black]">
         <Header
           scorePlayer={scorePlayer}
@@ -167,7 +168,7 @@ function Game() {
           />
         </div>
       </div>
-    </div>
+    </Container>
   );
 }
 
