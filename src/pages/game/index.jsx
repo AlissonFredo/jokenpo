@@ -26,7 +26,7 @@ function Game() {
     animateResult(animationSequence, () => {
       const computerChoice = drawOptionComputer();
 
-      if (playersWillRepeatOption(playerChoice, computerChoice)) return;
+      if (playersWillRepeatOption(playerChoice)) return;
 
       const matchResult = getMatchResult(playerChoice, computerChoice);
 
@@ -61,7 +61,6 @@ function Game() {
 
   const playersWillRepeatOption = (playerChoice) => {
     if (playerChoice == "rock" && lastPlayerOption == "rock") {
-      setResult("Avoid consecutive rocks");
       setTimeout(resetGame, 2000);
       return true;
     }
@@ -99,7 +98,10 @@ function Game() {
 
         <div className="flex justify-evenly">
           {[optionPlayer, optionComputer].map((option, index) => (
-            <div key={index} className={initialGame ? "animate-bounce-custom" : ""}>
+            <div
+              key={index}
+              className={initialGame ? "animate-bounce-custom" : ""}
+            >
               <img
                 src={images[option]}
                 alt={option}
@@ -112,6 +114,9 @@ function Game() {
         <div className="flex justify-center">
           {options.map((option, index) => (
             <ButtonMenu
+              disabled={
+                initialGame || (lastPlayerOption === "rock" && index === 0)
+              }
               key={option}
               action={() => play(option)}
               image={images[option]}
