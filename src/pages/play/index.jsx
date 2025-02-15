@@ -3,14 +3,13 @@ import Rock from "../../assets/rock.png";
 import Paper from "../../assets/paper.png";
 import Scissor from "../../assets/scissor.png";
 import Container from "../../components/Container";
+import Title from "../../components/Title";
 
 function Play() {
   return (
     <Container>
       <div className="flex-2">
-        <h1 className="text-center text-white font-bold text-6xl mb-6 drop-shadow-[6px_6px_4px_black]">
-          Jokenpo
-        </h1>
+        <Title label={"Jokenpo"} />
 
         <div className="relative flex items-center justify-center">
           <img src={Paper} alt="" className="w-60 rotate-90" />
