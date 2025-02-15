@@ -88,7 +88,11 @@ function Game() {
   };
 
   return (
-    <Container>
+    <Container styles="flex-col">
+      <h1 className="text-center text-white font-bold text-6xl mb-6 drop-shadow-[6px_6px_4px_black]">
+        Jokenpo
+      </h1>
+
       <div className="flex flex-col justify-between rounded-xl p-8 h-130 w-250 bg-radial from-orange-100 from-10% to-orange-300 drop-shadow-[8px_8px_4px_black]">
         <Header
           scorePlayer={scorePlayer}
