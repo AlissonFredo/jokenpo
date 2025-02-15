@@ -1,91 +1,97 @@
 import { useState } from "react";
 import Header from "../../components/Header";
 import Rock from "../../assets/rock.png";
-import Peper from "../../assets/peper.png";
-import Scissor from "../../assets/scissor.png";
+import Paper from "../../assets/paper.png";
+import Scissors from "../../assets/scissor.png";
+import ButtonMenu from "../../components/ButtonMenu";
+import Container from "../../components/Container";
+import Title from "../../components/Title";
 
 function Game() {
-  const options = ["rock", "paper", "scissor"];
+  const options = ["rock", "paper", "scissors"];
+  const images = { rock: Rock, paper: Paper, scissors: Scissors };
 
   const [result, setResult] = useState("");
   const [scorePlayer, setScorePlayer] = useState(0);
   const [scoreComputer, setScoreComputer] = useState(0);
   const [initialGame, setInitialGame] = useState(false);
-
   const [optionPlayer, setOptionPlayer] = useState("rock");
   const [optionComputer, setOptionComputer] = useState("rock");
+  const [lastPlayerOption, setLastPlayerOption] = useState("");
 
-  const play = (optionPlayer) => {
+  const play = (playerChoice) => {
     setInitialGame(true);
 
-    setTimeout(() => {
-      setResult("Rock");
+    const animationSequence = ["Rock", "Paper", "Scissors"];
+
+    animateResult(animationSequence, () => {
+      const computerChoice = drawOptionComputer();
+
+      if (playersWillRepeatOption(playerChoice)) return;
+
+      const matchResult = getMatchResult(playerChoice, computerChoice);
+
+      setOptionPlayer(playerChoice);
+      setOptionComputer(computerChoice);
+      setResult(matchResult);
+
+      if (matchResult == "YOU WIN!") {
+        setScorePlayer((prev) => prev + 1);
+      } else if (matchResult == "YOU LOSE!") {
+        setScoreComputer((prev) => prev + 1);
+      }
 
       setTimeout(() => {
-        setResult("Peper");
-
-        setTimeout(() => {
-          setResult("Scissor");
-
-          setTimeout(() => {
-            const optionComputer = drawOptionComputer();
-
-            console.log("Player", optionPlayer);
-            console.log("Computer", optionComputer);
-
-            const matchResult = getMatchResult(optionPlayer, optionComputer);
-            console.log("Result", matchResult);
-
-            setOptionPlayer(optionPlayer);
-            setOptionComputer(optionComputer);
-            setResult(matchResult);
-
-            if (matchResult == "YOU WIN!") {
-              handleScorePlayer();
-            } else if (matchResult == "YOU LOSE!") {
-              handleScoreComputer();
-            }
-
-            setTimeout(() => {
-              setInitialGame(false);
-              setResult("");
-              setOptionPlayer("rock");
-              setOptionComputer("rock");
-            }, 2000);
-          }, 300);
-        }, 1000);
-      }, 1000);
-    }, 1000);
+        setLastPlayerOption(playerChoice);
+        resetGame();
+      }, 2000);
+    });
   };
 
-  const drawOptionComputer = () => {
-    return options[Math.floor(Math.random() * options.length)];
+  const animateResult = (steps, callback, index = 0) => {
+    if (index < steps.length) {
+      setResult(steps[index]);
+      setTimeout(() => animateResult(steps, callback, index + 1), 1000);
+    } else {
+      callback();
+    }
   };
 
-  const getMatchResult = (optionPlayer, optionComputer) => {
-    if (optionPlayer == optionComputer) {
-      return "DRAW GAME";
-    } else if (optionPlayer == "rock" && optionComputer == "scissor") {
-      return "YOU WIN!";
-    } else if (optionPlayer == "paper" && optionComputer == "rock") {
-      return "YOU WIN!";
-    } else if (optionPlayer == "scissor" && optionComputer == "paper") {
-      return "YOU WIN!";
+  const drawOptionComputer = () =>
+    options[Math.floor(Math.random() * options.length)];
+
+  const playersWillRepeatOption = (playerChoice) => {
+    if (playerChoice == "rock" && lastPlayerOption == "rock") {
+      setTimeout(resetGame, 2000);
+      return true;
     }
 
-    return "YOU LOSE!";
+    return false;
   };
 
-  const handleScorePlayer = () => {
-    setScorePlayer(scorePlayer + 1);
+  const resetGame = () => {
+    setInitialGame(false);
+    setOptionPlayer("rock");
+    setOptionComputer("rock");
+    setResult("");
   };
 
-  const handleScoreComputer = () => {
-    setScoreComputer(scoreComputer + 1);
+  const getMatchResult = (player, computer) => {
+    if (player === computer) return "DRAW GAME";
+
+    const winningMoves = {
+      rock: "scissors",
+      paper: "rock",
+      scissors: "paper",
+    };
+
+    return winningMoves[player] === computer ? "YOU WIN!" : "YOU LOSE!";
   };
 
   return (
-    <div className="w-full min-h-screen bg-radial from-yellow-600 from-30% to-yellow-800 flex items-center justify-center">
+    <Container styles="flex-col">
+      <Title label={"Jokenpo"} />
+
       <div className="flex flex-col justify-between rounded-xl p-8 h-130 w-250 bg-radial from-orange-100 from-10% to-orange-300 drop-shadow-[8px_8px_4px_black]">
         <Header
           scorePlayer={scorePlayer}
@@ -94,79 +100,36 @@ function Game() {
         />
 
         <div className="flex justify-evenly">
-          <div className={initialGame ? "animate-bounce-custom" : ""}>
-            <img
-              src={
-                optionPlayer == "scissor"
-                  ? Scissor
-                  : optionPlayer == "paper"
-                  ? Peper
-                  : Rock
-              }
-              alt=""
-              className="w-30 rotate-180"
-            />
-          </div>
-          <div className={initialGame ? "animate-bounce-custom" : ""}>
-            <img
-              src={
-                optionComputer == "scissor"
-                  ? Scissor
-                  : optionComputer == "paper"
-                  ? Peper
-                  : Rock
-              }
-              alt=""
-              className="w-30"
-            />
-          </div>
+          {[optionPlayer, optionComputer].map((option, index) => (
+            <div
+              key={index}
+              className={initialGame ? "animate-bounce-custom" : ""}
+            >
+              <img
+                src={images[option]}
+                alt={option}
+                className={`w-30 ${index === 0 ? "rotate-180" : ""}`}
+              />
+            </div>
+          ))}
         </div>
 
         <div className="flex justify-center">
-          <button
-            className="p-2 rounded-xl ml-2 flex flex-col justify-between bg-radial from-yellow-600 from-30% to-yellow-800 drop-shadow-[6px_6px_4px_black] cursor-pointer transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
-            onClick={() => play(options[0])}
-          >
-            <img src={Rock} alt="" className="w-15 rotate-90" />
-            <p className="text-white font-bold drop-shadow-[6px_6px_4px_black]">
-              Rock
-            </p>
-          </button>
-
-          <button
-            className="p-2 rounded-xl ml-4 flex flex-col justify-end bg-radial from-yellow-600 from-30% to-yellow-800 drop-shadow-[6px_6px_4px_black] cursor-pointer transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
-            onClick={() => play(options[1])}
-          >
-            <div className="w-15 relative">
-              <img
-                src={Peper}
-                alt=""
-                className="w-15 rotate-90 absolute bottom-6 right-0"
-              />
-              <p className="text-white font-bold drop-shadow-[6px_6px_4px_black]">
-                Paper
-              </p>
-            </div>
-          </button>
-
-          <button
-            className="p-2 rounded-xl ml-4 flex flex-col justify-end bg-radial from-yellow-600 from-30% to-yellow-800 drop-shadow-[6px_6px_4px_black] cursor-pointer transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
-            onClick={() => play(options[2])}
-          >
-            <div className="w-15 relative">
-              <img
-                src={Scissor}
-                alt=""
-                className="w-15 rotate-90 absolute bottom-8 right-0"
-              />
-              <p className="text-white font-bold drop-shadow-[6px_6px_4px_black]">
-                Scissor
-              </p>
-            </div>
-          </button>
+          {options.map((option, index) => (
+            <ButtonMenu
+              disabled={
+                initialGame || (lastPlayerOption === "rock" && index === 0)
+              }
+              key={option}
+              action={() => play(option)}
+              image={images[option]}
+              label={option}
+              styles={index === 1 ? "ml-3 mr-3" : ""}
+            />
+          ))}
         </div>
       </div>
-    </div>
+    </Container>
   );
 }
 
