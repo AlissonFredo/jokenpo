@@ -1,13 +1,14 @@
 import { useState } from "react";
 import Header from "../../components/Header";
 import Rock from "../../assets/rock.png";
-import Peper from "../../assets/peper.png";
-import Scissor from "../../assets/scissor.png";
+import Paper from "../../assets/paper.png";
+import Scissors from "../../assets/scissor.png";
 import ButtonMenu from "../../components/ButtonMenu";
 import Container from "../../components/Container";
 
 function Game() {
-  const options = ["rock", "paper", "scissor"];
+  const options = ["rock", "paper", "scissors"];
+  const images = { rock: Rock, paper: Paper, scissors: Scissors };
 
   const [result, setResult] = useState("");
   const [scorePlayer, setScorePlayer] = useState(0);
@@ -16,94 +17,75 @@ function Game() {
   const [optionPlayer, setOptionPlayer] = useState("rock");
   const [optionComputer, setOptionComputer] = useState("rock");
   const [lastPlayerOption, setLastPlayerOption] = useState("");
-  const [lastComputerOption, setLastComputerOption] = useState("");
 
-  const play = (optionPlayer) => {
+  const play = (playerChoice) => {
     setInitialGame(true);
 
-    setTimeout(() => {
-      setResult("Rock");
+    const animationSequence = ["Rock", "Paper", "Scissors"];
+
+    animateResult(animationSequence, () => {
+      const computerChoice = drawOptionComputer();
+
+      if (playersWillRepeatOption(playerChoice, computerChoice)) return;
+
+      const matchResult = getMatchResult(playerChoice, computerChoice);
+
+      setOptionPlayer(playerChoice);
+      setOptionComputer(computerChoice);
+      setResult(matchResult);
+
+      if (matchResult == "YOU WIN!") {
+        setScorePlayer((prev) => prev + 1);
+      } else if (matchResult == "YOU LOSE!") {
+        setScoreComputer((prev) => prev + 1);
+      }
 
       setTimeout(() => {
-        setResult("Peper");
-
-        setTimeout(() => {
-          setResult("Scissor");
-
-          setTimeout(() => {
-            const optionComputer = drawOptionComputer();
-
-            if (playersWillRepeatOption(optionPlayer, optionComputer)) return;
-
-            const matchResult = getMatchResult(optionPlayer, optionComputer);
-
-            setOptionPlayer(optionPlayer);
-            setOptionComputer(optionComputer);
-            setResult(matchResult);
-
-            if (matchResult == "YOU WIN!") {
-              handleScorePlayer();
-            } else if (matchResult == "YOU LOSE!") {
-              handleScoreComputer();
-            }
-
-            setTimeout(() => {
-              setLastPlayerOption(optionPlayer);
-              setLastComputerOption(optionComputer);
-              setInitialValues();
-            }, 2000);
-          }, 300);
-        }, 1000);
-      }, 1000);
-    }, 1000);
+        setLastPlayerOption(playerChoice);
+        resetGame();
+      }, 2000);
+    });
   };
 
-  const drawOptionComputer = () => {
-    return options[Math.floor(Math.random() * options.length)];
+  const animateResult = (steps, callback, index = 0) => {
+    if (index < steps.length) {
+      setResult(steps[index]);
+      setTimeout(() => animateResult(steps, callback, index + 1), 1000);
+    } else {
+      callback();
+    }
   };
 
-  const playersWillRepeatOption = (optionPlayer, optionComputer) => {
-    if (
-      (optionPlayer == "rock" && lastPlayerOption == "rock") ||
-      (optionComputer == "rock" && lastComputerOption == "rock")
-    ) {
-      setResult("Avoid consecutive stones");
+  const drawOptionComputer = () =>
+    options[Math.floor(Math.random() * options.length)];
 
-      setTimeout(() => setInitialValues(), 2000);
-
+  const playersWillRepeatOption = (playerChoice) => {
+    if (playerChoice == "rock" && lastPlayerOption == "rock") {
+      setResult("Avoid consecutive rocks");
+      setTimeout(resetGame, 2000);
       return true;
     }
 
     return false;
   };
 
-  const getMatchResult = (optionPlayer, optionComputer) => {
-    if (optionPlayer == optionComputer) {
-      return "DRAW GAME";
-    } else if (optionPlayer == "rock" && optionComputer == "scissor") {
-      return "YOU WIN!";
-    } else if (optionPlayer == "paper" && optionComputer == "rock") {
-      return "YOU WIN!";
-    } else if (optionPlayer == "scissor" && optionComputer == "paper") {
-      return "YOU WIN!";
-    }
-
-    return "YOU LOSE!";
-  };
-
-  const handleScorePlayer = () => {
-    setScorePlayer(scorePlayer + 1);
-  };
-
-  const handleScoreComputer = () => {
-    setScoreComputer(scoreComputer + 1);
-  };
-
-  const setInitialValues = () => {
+  const resetGame = () => {
     setInitialGame(false);
-    setResult("");
     setOptionPlayer("rock");
     setOptionComputer("rock");
+    setResult("");
+  };
+
+  const getMatchResult = (player, computer) => {
+    if (player === computer) return "DRAW GAME";
+
+    const winningMoves = {
+      rock: "scissors",
+      paper: "rock",
+      scissors: "paper",
+    };
+
+    return winningMoves[player] === computer ? "YOU WIN!" : "YOU LOSE!";
   };
 
   return (
@@ -116,53 +98,27 @@ function Game() {
         />
 
         <div className="flex justify-evenly">
-          <div className={initialGame ? "animate-bounce-custom" : ""}>
-            <img
-              src={
-                optionPlayer == "scissor"
-                  ? Scissor
-                  : optionPlayer == "paper"
-                  ? Peper
-                  : Rock
-              }
-              alt=""
-              className="w-30 rotate-180"
-            />
-          </div>
-          <div className={initialGame ? "animate-bounce-custom" : ""}>
-            <img
-              src={
-                optionComputer == "scissor"
-                  ? Scissor
-                  : optionComputer == "paper"
-                  ? Peper
-                  : Rock
-              }
-              alt=""
-              className="w-30"
-            />
-          </div>
+          {[optionPlayer, optionComputer].map((option, index) => (
+            <div key={index} className={initialGame ? "animate-bounce-custom" : ""}>
+              <img
+                src={images[option]}
+                alt={option}
+                className={`w-30 ${index === 0 ? "rotate-180" : ""}`}
+              />
+            </div>
+          ))}
         </div>
 
         <div className="flex justify-center">
-          <ButtonMenu
-            action={() => play(options[0])}
-            image={Rock}
-            label="Rock"
-          />
-
-          <ButtonMenu
-            action={() => play(options[1])}
-            image={Peper}
-            label="Peper"
-            styles="ml-2 mr-2"
-          />
-
-          <ButtonMenu
-            action={() => play(options[2])}
-            image={Scissor}
-            label="Scissor"
-          />
+          {options.map((option, index) => (
+            <ButtonMenu
+              key={option}
+              action={() => play(option)}
+              image={images[option]}
+              label={option}
+              styles={index === 1 ? "ml-3 mr-3" : ""}
+            />
+          ))}
         </div>
       </div>
     </Container>
