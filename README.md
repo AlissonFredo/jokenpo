@@ -20,13 +20,24 @@ If both players choose the same gesture, the game ends in a tie.
 - in development
 
 ## Features
-- **Automatic Scoring:** Calculates the score for both the player and the computer during the game. :white_check_mark:
-- **Winner Determination:** Identifies whether the player or the computer is the winner of the match based on the choices made. :white_check_mark:
-- **Button Disabling:** Prevents interactions with the buttons while the game is ongoing to avoid unwanted clicks. :white_check_mark:
-- **Hand Visual Display:** Clearly and intuitively shows the hand symbols (rock, paper, scissors) to the player. :white_check_mark:
-- **Move Control:** Prevents the player from choosing the same option (rock) twice in a row. :white_check_mark:
-- **Start Page (Play):** A page with a "Start" button that redirects the player to the game page. :white_check_mark:
-- **Return to Start Page (Play):** On the game page, the player can return to the start page via a navigation button. :x:
-- **Game Restart:** Provides a button to restart the game, allowing a new round without reloading the page. :x:
-- **Rule Display:** A button that shows the game rules to the player, explaining the mechanics in an accessible way. :x:
-- **Responsive Design:** A layout that adapts to different screen sizes, providing a good user experience on both mobile devices and desktops. :x:
+- **Automatic Scoring:** :white_check_mark:
+Calculates the score for both the player and the computer during the game. 
+
+- **Winner Determination:** :white_check_mark:
+Identifies whether the player or the computer is the winner of the match based on the choices made. 
+- **Button Disabling:** :white_check_mark:
+Prevents interactions with the buttons while the game is ongoing to avoid unwanted clicks. 
+- **Hand Visual Display:** :white_check_mark:
+Clearly and intuitively shows the hand symbols (rock, paper, scissors) to the player. 
+- **Move Control:** :white_check_mark:
+Prevents the player from choosing the same option (rock) twice in a row. 
+- **Start Page (Play):** :white_check_mark:
+A page with a "Start" button that redirects the player to the game page. 
+- **Return to Start Page (Play):** :x:
+On the game page, the player can return to the start page via a navigation button. 
+- **Game Restart:** :x:
+Provides a button to restart the game, allowing a new round without reloading the page. 
+- **Rule Display:** :x:
+A button that shows the game rules to the player, explaining the mechanics in an accessible way. 
+- **Responsive Design:** :x:
+A layout that adapts to different screen sizes, providing a good user experience on both mobile devices and desktops. 
