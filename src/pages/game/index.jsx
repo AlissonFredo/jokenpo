@@ -8,6 +8,7 @@ import Container from "../../components/Container";
 import Title from "../../components/Title";
 import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
+import { VscDebugRestart } from "react-icons/vsc";
 
 function Game() {
   const options = ["rock", "paper", "scissors"];
@@ -71,11 +72,17 @@ function Game() {
     return false;
   };
 
-  const resetGame = () => {
+  const resetGame = (resetScoreboard = false) => {
     setInitialGame(false);
     setOptionPlayer("rock");
     setOptionComputer("rock");
     setResult("");
+
+    if (resetScoreboard) {
+      setScorePlayer(0);
+      setScoreComputer(0);
+      setLastPlayerOption("");
+    }
   };
 
   const getMatchResult = (player, computer) => {
@@ -112,12 +119,12 @@ function Game() {
         `}
       >
         <Link
-          to={"/"}
+          to={initialGame ? "#" : "/"}
           title="Home"
           className={`
           absolute 
           bottom-135 
-          right-0
+          right-10
           rounded-xl 
           text-1xl 
           font-bold 
@@ -126,10 +133,33 @@ function Game() {
           text-white 
           p-2
           text-center 
+          ${initialGame ? "opacity-50 cursor-not-allowed" : ""}
         `}
         >
           <FaHome />
         </Link>
+
+        <button
+          disabled={initialGame}
+          title="Reset Match"
+          className={`
+            absolute 
+            bottom-135 
+            right-0
+            rounded-xl 
+            text-1xl 
+            font-bold 
+            bg-yellow-700 
+            hover:bg-yellow-800 
+            text-white 
+            p-2
+            text-center 
+            ${initialGame ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+          `}
+          onClick={() => resetGame(true)}
+        >
+          <VscDebugRestart />
+        </button>
 
         <Header
           scorePlayer={scorePlayer}

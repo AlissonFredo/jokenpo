@@ -35,7 +35,7 @@ Prevents the player from choosing the same option (rock) twice in a row.
 A page with a "Start" button that redirects the player to the game page. 
 - **Return to Start Page (Play):** :white_check_mark:
 On the game page, the player can return to the start page via a navigation button. 
-- **Game Restart:** :x:
+- **Game Restart:** :white_check_mark:
 Provides a button to restart the game, allowing a new round without reloading the page. 
 - **Rule Display:** :x:
 A button that shows the game rules to the player, explaining the mechanics in an accessible way. 
