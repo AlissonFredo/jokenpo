@@ -6,6 +6,8 @@ import Scissors from "../../assets/scissor.png";
 import ButtonMenu from "../../components/ButtonMenu";
 import Container from "../../components/Container";
 import Title from "../../components/Title";
+import { Link } from "react-router-dom";
+import { FaHome } from "react-icons/fa";
 
 function Game() {
   const options = ["rock", "paper", "scissors"];
@@ -92,7 +94,43 @@ function Game() {
     <Container styles="flex-col">
       <Title label={"Jokenpo"} />
 
-      <div className="flex flex-col justify-between rounded-xl p-8 h-130 w-250 bg-radial from-orange-100 from-10% to-orange-300 drop-shadow-[8px_8px_4px_black]">
+      <div
+        className={`
+          flex 
+          flex-col 
+          justify-between 
+          rounded-xl 
+          p-8 
+          h-130 
+          w-250 
+          bg-radial 
+          from-orange-100 
+          from-10% 
+          to-orange-300 
+          drop-shadow-[8px_8px_4px_black]
+          relative
+        `}
+      >
+        <Link
+          to={"/"}
+          title="Home"
+          className={`
+          absolute 
+          bottom-135 
+          right-0
+          rounded-xl 
+          text-1xl 
+          font-bold 
+          bg-yellow-700 
+          hover:bg-yellow-800 
+          text-white 
+          p-2
+          text-center 
+        `}
+        >
+          <FaHome />
+        </Link>
+
         <Header
           scorePlayer={scorePlayer}
           scoreComputer={scoreComputer}

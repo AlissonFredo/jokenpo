@@ -33,7 +33,7 @@ Clearly and intuitively shows the hand symbols (rock, paper, scissors) to the pl
 Prevents the player from choosing the same option (rock) twice in a row. 
 - **Start Page (Play):** :white_check_mark:
 A page with a "Start" button that redirects the player to the game page. 
-- **Return to Start Page (Play):** :x:
+- **Return to Start Page (Play):** :white_check_mark:
 On the game page, the player can return to the start page via a navigation button. 
 - **Game Restart:** :x:
 Provides a button to restart the game, allowing a new round without reloading the page. 
