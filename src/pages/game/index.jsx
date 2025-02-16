@@ -6,6 +6,9 @@ import Scissors from "../../assets/scissor.png";
 import ButtonMenu from "../../components/ButtonMenu";
 import Container from "../../components/Container";
 import Title from "../../components/Title";
+import { Link } from "react-router-dom";
+import { FaHome } from "react-icons/fa";
+import { VscDebugRestart } from "react-icons/vsc";
 
 function Game() {
   const options = ["rock", "paper", "scissors"];
@@ -69,11 +72,17 @@ function Game() {
     return false;
   };
 
-  const resetGame = () => {
+  const resetGame = (resetScoreboard = false) => {
     setInitialGame(false);
     setOptionPlayer("rock");
     setOptionComputer("rock");
     setResult("");
+
+    if (resetScoreboard) {
+      setScorePlayer(0);
+      setScoreComputer(0);
+      setLastPlayerOption("");
+    }
   };
 
   const getMatchResult = (player, computer) => {
@@ -92,7 +101,66 @@ function Game() {
     <Container styles="flex-col">
       <Title label={"Jokenpo"} />
 
-      <div className="flex flex-col justify-between rounded-xl p-8 h-130 w-250 bg-radial from-orange-100 from-10% to-orange-300 drop-shadow-[8px_8px_4px_black]">
+      <div
+        className={`
+          flex 
+          flex-col 
+          justify-between 
+          rounded-xl 
+          p-8 
+          h-130 
+          w-250 
+          bg-radial 
+          from-orange-100 
+          from-10% 
+          to-orange-300 
+          drop-shadow-[8px_8px_4px_black]
+          relative
+        `}
+      >
+        <Link
+          to={initialGame ? "#" : "/"}
+          title="Home"
+          className={`
+          absolute 
+          bottom-135 
+          right-10
+          rounded-xl 
+          text-1xl 
+          font-bold 
+          bg-yellow-700 
+          hover:bg-yellow-800 
+          text-white 
+          p-2
+          text-center 
+          ${initialGame ? "opacity-50 cursor-not-allowed" : ""}
+        `}
+        >
+          <FaHome />
+        </Link>
+
+        <button
+          disabled={initialGame}
+          title="Reset Match"
+          className={`
+            absolute 
+            bottom-135 
+            right-0
+            rounded-xl 
+            text-1xl 
+            font-bold 
+            bg-yellow-700 
+            hover:bg-yellow-800 
+            text-white 
+            p-2
+            text-center 
+            ${initialGame ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+          `}
+          onClick={() => resetGame(true)}
+        >
+          <VscDebugRestart />
+        </button>
+
         <Header
           scorePlayer={scorePlayer}
           scoreComputer={scoreComputer}
