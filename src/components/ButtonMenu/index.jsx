@@ -18,7 +18,6 @@ function ButtonMenu({
         from-30% 
         to-yellow-800 
         drop-shadow-[6px_6px_4px_black] 
-        cursor-pointer 
         transition 
         delay-150 
         duration-300 
@@ -26,7 +25,7 @@ function ButtonMenu({
         hover:-translate-y-1 
         hover:scale-110 
         ${styles}
-        ${props.disabled ? "opacity-50 cursor-not-allowed" : ""}
+        ${props.disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
       `}
       onClick={action}
       {...props}
