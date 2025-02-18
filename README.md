@@ -39,5 +39,5 @@ On the game page, the player can return to the start page via a navigation butto
 Provides a button to restart the game, allowing a new round without reloading the page. 
 - **Rule Display:** :x:
 A button that shows the game rules to the player, explaining the mechanics in an accessible way. 
-- **Responsive Design:** :x:
+- **Responsive Design:** :white_check_mark:
 A layout that adapts to different screen sizes, providing a good user experience on both mobile devices and desktops. 
