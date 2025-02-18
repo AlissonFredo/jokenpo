@@ -106,10 +106,13 @@ function Game() {
           flex 
           flex-col 
           justify-between 
-          rounded-xl 
-          p-8 
-          h-130 
-          w-250 
+          rounded-xl
+          p-4 
+          md:p-8 
+          h-115
+          2xl:h-130
+          w-auto 
+          md:w-3/5
           bg-radial 
           from-orange-100 
           from-10% 
@@ -122,9 +125,12 @@ function Game() {
           to={initialGame ? "#" : "/"}
           title="Home"
           className={`
-          absolute 
-          bottom-135 
-          right-10
+          absolute
+          bottom-128
+          md:bottom-120
+          xl:bottom-135 
+          -right-5
+          md:right-10
           rounded-xl 
           text-1xl 
           font-bold 
@@ -144,8 +150,11 @@ function Game() {
           title="Reset Match"
           className={`
             absolute 
-            bottom-135 
-            right-0
+            bottom-118
+            md:bottom-120
+            xl:bottom-135 
+            -right-5
+            md:right-0
             rounded-xl 
             text-1xl 
             font-bold 
