@@ -9,6 +9,7 @@ import Title from "../../components/Title";
 import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import { VscDebugRestart } from "react-icons/vsc";
+import Modal from "../../components/Modal";
 
 function Game() {
   const options = ["rock", "paper", "scissors"];
@@ -126,11 +127,11 @@ function Game() {
           title="Home"
           className={`
           absolute
-          bottom-128
+          bottom-138
           md:bottom-120
           xl:bottom-135 
           -right-5
-          md:right-10
+          md:right-20
           rounded-xl 
           text-1xl 
           font-bold 
@@ -150,11 +151,11 @@ function Game() {
           title="Reset Match"
           className={`
             absolute 
-            bottom-118
+            bottom-128
             md:bottom-120
             xl:bottom-135 
             -right-5
-            md:right-0
+            md:right-10
             rounded-xl 
             text-1xl 
             font-bold 
@@ -169,6 +170,8 @@ function Game() {
         >
           <VscDebugRestart />
         </button>
+
+        <Modal />
 
         <Header
           scorePlayer={scorePlayer}
