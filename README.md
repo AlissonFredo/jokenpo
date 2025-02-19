@@ -1,5 +1,5 @@
 ## Executable demo
-- in development
+- https://jokenpo-dun.vercel.app/
 
 ## About
 Jokenpô (or Rock, Paper, Scissors) is a simple and popular hand game, usually played between two people. The basic objective of the game is to defeat the opponent by choosing one of the three available gestures, following these rules:
